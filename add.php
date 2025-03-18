@@ -1,12 +1,13 @@
 <?php
 require_once("functions.php");
 require_once("connectDB.php"); 
+require_once("Car.php"); 
 
 // Vérifier que l'utilisateur est connécté avec la présence
 // D'un "username" en SESSION
 verifySession();
 
-
+//Class error ??
 $errors = [];
 // Si le formulaire est validé
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -15,8 +16,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     if (empty($errors)) {
         $pdo = connectDB();// Un seul connect DB par page
-        // Ajouter la voiture et rediriger
-        insertCar($pdo, $_POST["brand"], $_POST["model"], $_POST["horsePower"], $_POST["image"]);
+        //Instancier une objet Car avec le sdonnées du formulaire
+        $car = new Car(null, $_POST["brand"], $_POST["model"], $_POST["horsePower"], $_POST["image"]);
+        // Ajouter la voiture en BDD  et rediriger
+        insertCar($pdo, $car);
         header("location: index.php");
     }
 }

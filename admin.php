@@ -1,9 +1,10 @@
 <?php
 require_once("functions.php");
 require_once("connectDB.php");
-// Vérifier que l'utilisateur est connécté 
-verifySession();
+require_once("Car.php");
 
+// Vérifier que l'utilisateur est connecté
+verifySession();
 
 $pdo = connectDB();
 $cars = selectAllCars($pdo);
@@ -11,25 +12,34 @@ $title = "Administration Garage";
 require_once("header.php");
 ?>
 
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Liste des Voitures</h1>
 
-<h1>Listes des Voitures</h1>
-<a class="btn btn-success" href="add.php">Add Car</a>
-<div class="d-flex flex-wrap">
-    <?php foreach ($cars as $car): ?>
-        <div class="col-4 d-flex p-3 justify-content-center">
-            <img src="images/<?php echo $car["image"] ?>" alt="<?php echo $car["model"] ?>">
-            <div class="p-2">
-                <h2><?php echo $car["model"] ?></h2>
-                <p><?php echo $car["brand"] ?>, <?php echo $car["horsePower"] ?> chevaux</p>
+    <div class="text-center mb-3">
+        <a class="btn btn-success" href="add.php">Ajouter une Voiture</a>
+    </div>
+
+    <div class="row">
+        <?php foreach ($cars as $car): ?>
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    <img src="images/<?= $car->getImage() ?>" 
+                         alt="<?= $car->getModel() ?>" 
+                         class="card-img-top img-fluid rounded col-md-4 col-sm-6" >                    
+                    <div class="card-body">
+                        <h5 class="card-title"><?= $car->getModel() ?></h5>
+                        <p class="card-text"><?= $car->getBrand() ?> - <?= $car->getHorsePower() ?> chevaux</p>
+                        <div class="d-flex justify-content-between">
+                            <a class="btn btn-primary" href="update.php?id=<?= $car->getId() ?>">Modifier</a>
+                            <a class="btn btn-danger" href="delete.php?id=<?= $car->getId() ?>">Supprimer</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <a class="btn btn-primary" href="update.php?id=<?php echo $car["id"] ?>">Update</a>
-            <a class="btn btn-danger" href="delete.php?id=<?php echo $car["id"] ?>">Delete</a>
-        </div>
-    <?php endforeach; ?>
+        <?php endforeach; ?>
+    </div>
 </div>
-
 
 <?php
 require_once("footer.php");
-
 ?>

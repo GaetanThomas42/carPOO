@@ -1,83 +1,115 @@
 <?php
-
 /**
  * Récupère toutes les voitures de la base de données.
  *
  * @param PDO $pdo La connexion PDO.
  *
- * @example <p>
- * $pdo = connectDB();
- * $cars = selectAllCars($pdo); // $cars Tableau associatif contenant les données de la table car
- * </p>
- *
- * @return array Tableau associatif contenant les voitures.
+ * @return array Tableau d'instances Car.
  */
-function selectAllCars(PDO $pdo):array
-{   
+function selectAllCars(PDO $pdo): array
+{
     $requete = $pdo->prepare("SELECT * FROM car;");
     $requete->execute();
-    $cars = $requete->fetchAll();
+    $arrayCars = $requete->fetchAll();
+    //Je parcours le tableau de résultats 
+    $cars = [];
+    foreach ($arrayCars as $arrayCar) {
+        //J'instancie un objet avec les données d'une Voiture ( tableau associatif)
+        $cars[] = new Car($arrayCar["id"], $arrayCar["brand"], $arrayCar["model"], $arrayCar["horsePower"], $arrayCar["image"]);
+    }
+
     return $cars;
 }
 
-function selectCarByID(PDO $pdo, int $id): array|false
+/**
+ * Récupère une voiture par ID de la base de données.
+ * @param  PDO $pdo
+ * @param  int $id
+ * @return Car
+ */
+function selectCarByID(PDO $pdo, int $id): Car|false
 {
     $requete = $pdo->prepare("SELECT * FROM car WHERE id = :id;");
     $requete->execute([
-        ":id" => $_GET["id"]
+        ":id" => $id
     ]);
-    
-    return $requete->fetch();
 
+    $arrayCar = $requete->fetch(); 
+
+    $carObject = new Car($arrayCar["id"], $arrayCar["brand"], $arrayCar["model"], $arrayCar["horsePower"], $arrayCar["image"]);
+
+    //Retourner l'instance de Car créée avec l'occurence Car de la BDD
+    return $carObject;
 }
 
-function insertCar(PDO $pdo, string $brand, string $model, int $horsePower, string $image):void
+/**
+ * insertCar
+ *
+ * @param  PDO $pdo
+ * @param  Car $car
+ * @return bool
+ */
+function insertCar(PDO $pdo, Car $car): bool
 {
     $requete = $pdo->prepare("INSERT INTO car (model,brand,horsePower,image) VALUES (:model,:brand,:horsePower,:image);");
-        $requete->execute(
-            [
-                ":model" => $model,
-                ":brand" => $brand,
-                ":horsePower" => $horsePower,
-                ":image" => $image
-            ]
-        );
+    
+    $requete->execute([
+        ":model" => $car->getModel(),
+        ":brand" => $car->getBrand(),
+        ":horsePower" => $car->getHorsePower(),
+        ":image" => $car->getImage()
+    ]);
+
+    return $requete->rowCount() > 0;
+
 }
 
-function updateCarByID(PDO $pdo, string $brand, string $model, int $horsePower, string $image, int $id):void
+/**
+ * updateCarByID
+ *
+ * @param  PDO $pdo
+ * @param  Car $car
+ * @return bool
+ */
+function updateCarByID(PDO $pdo, Car $car): bool
 {
     $requete = $pdo->prepare("UPDATE car SET model = :model, brand = :brand, horsePower = :horsePower, image = :image WHERE id = :id;");
     $requete->execute(
         [
-            ":model" => $model,
-                ":brand" => $brand,
-                ":horsePower" => $horsePower,
-                ":image" => $image,
-                ":id" => $id
+            ":model" => $car->getModel(),
+            ":brand" => $car->getBrand(),
+            ":horsePower" => $car->getHorsePower(),
+            ":image" => $car->getImage(),
+            ":id" => $car->getId()
         ]
     );
+
+    return $requete->rowCount() > 0;
+
 }
-function deleteCarByID(PDO $pdo, int $id):void
+
+/**
+ * deleteCarByID
+ *
+ * @param  PDO $pdo
+ * @param  int $id
+ * @return bool
+ */
+function deleteCarByID(PDO $pdo, int $id): bool
 {
     $requete = $pdo->prepare("DELETE FROM car WHERE id = :id;");
     $requete->execute([
         ":id" => $id
     ]);
+
+    return $requete->rowCount() > 0;
+
 }
 
 
-function verifySession():void
-{
-    if(!isset($_SESSION)){
-        session_start();
-    }
-    if(!isset($_SESSION["username"])){
-        header("Location: index.php");
-        exit();
-    }
-}
 
-function validateCarForm(array $errors, array $carForm):array
+// Class CarForm... ?
+function validateCarForm(array $errors, array $carForm): array
 {
     if (empty($carForm["model"])) {
         $errors["model"] = "le modele de voiture est manquant";
@@ -91,26 +123,12 @@ function validateCarForm(array $errors, array $carForm):array
     if (empty($carForm["image"])) {
         $errors["image"] = "l'image de la voiture est manquante";
     }
-     return $errors;
+    //Démo class CarFormValidator
+    
+    return $errors;
 }
 
-
-function verifyURLID(int $id):void
-{
-    if(empty($id)){
-        header("Location: index.php");
-        exit();
-    }
-}
-
-function verifyCarExist(bool|array $car):void
-{
-    if ($car == false) {
-        header("Location: index.php?Select=IdNotFound");
-        exit();
-    }
-}
-
+//Class UserManager
 function selectUserByUsername(PDO $pdo, string $username): array|false
 {
     $requete = $pdo->prepare("SELECT * FROM user WHERE username = :username;");
@@ -118,6 +136,17 @@ function selectUserByUsername(PDO $pdo, string $username): array|false
         ":username" => $username
     ]);
     return $requete->fetch();
-
 }
-?>
+
+//Class SessionChecker
+function verifySession(): void
+{
+    if (!isset($_SESSION)) {
+        session_start();
+    }
+
+    if (!isset($_SESSION["username"])) {
+        header("Location: index.php");
+        exit();
+    }
+}

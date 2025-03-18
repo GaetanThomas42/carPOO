@@ -14,8 +14,6 @@ function connectDB(): PDO
 
         return $pdo;
 
-
-
         
     } catch (Exception $e) {
        echo("Erreur de connexion a la base de données. connectDB()");
