@@ -1,6 +1,5 @@
 <?php
 require_once("functions.php");
-require_once("connectDB.php");
 require_once("Car.php"); 
 require_once("CarManager.php");
 
@@ -12,9 +11,7 @@ if(!isset($_GET["id"])){
     header("Location: admin.php");
 }
 //Select by id
-$pdo = connectDB(); // Un seul connect DB par page
-
-$carManager = new CarManager($pdo);
+$carManager = new CarManager();
 $car = $carManager->selectCarByID($_GET["id"]);
 
 //Vérifier si la voiture avec l'ID existe en BDD
@@ -26,7 +23,7 @@ if(!$car){
 //Si le form est validé
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //Supprimer la voiture et rediriger
-    $carManager = new CarManager($pdo);
+    $carManager = new CarManager();
     $carManager->deleteCarByID($car->getId());
     header("Location: admin.php?delete=ok");
 }

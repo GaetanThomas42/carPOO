@@ -1,6 +1,5 @@
 <?php
 require_once("functions.php");
-require_once("connectDB.php"); 
 require_once("Car.php"); 
 require_once("CarManager.php"); 
 
@@ -16,11 +15,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
    $errors = validateCarForm($errors,$_POST);
     
     if (empty($errors)) {
-        $pdo = connectDB();// Un seul connect DB par page
         //Instancier une objet Car avec le sdonnées du formulaire
         $car = new Car(null, $_POST["brand"], $_POST["model"], $_POST["horsePower"], $_POST["image"]);
         // Ajouter la voiture en BDD  et rediriger
-        $carManager = new CarManager($pdo);
+        $carManager = new CarManager();
         $carManager->insertCar($car);
         header("location: admin.php");
     }
