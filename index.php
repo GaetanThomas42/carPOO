@@ -1,6 +1,6 @@
 <?php
-require_once("CarManager.php");
-require_once("Car.php");
+require_once("Manager/CarManager.php");
+require_once("Model/Car.php");
     
 $carManager = new CarManager();
 $cars = $carManager->selectAllCars();
