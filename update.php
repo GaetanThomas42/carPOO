@@ -13,8 +13,8 @@ if(!isset($_GET["id"])){
 }
 
 $pdo = connectDB();
-$carManager = new CarManager();
-$car = $carManager->selectCarByID($pdo, $_GET["id"]); // Un seul connect DB par page
+$carManager = new CarManager($pdo);
+$car = $carManager->selectCarByID($_GET["id"]); // Un seul connect DB par page
 
 //Vérifier si la voiture avec l'ID existe en BDD
 if(!$car){

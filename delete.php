@@ -14,8 +14,8 @@ if(!isset($_GET["id"])){
 //Select by id
 $pdo = connectDB(); // Un seul connect DB par page
 
-$carManager = new CarManager();
-$car = $carManager->selectCarByID($pdo, $_GET["id"]);
+$carManager = new CarManager($pdo);
+$car = $carManager->selectCarByID($_GET["id"]);
 
 //Vérifier si la voiture avec l'ID existe en BDD
 if(!$car){
@@ -26,8 +26,8 @@ if(!$car){
 //Si le form est validé
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //Supprimer la voiture et rediriger
-    $carManager = new CarManager();
-    $carManager->deleteCarByID($pdo, $car->getId());
+    $carManager = new CarManager($pdo);
+    $carManager->deleteCarByID($car->getId());
     header("Location: admin.php?delete=ok");
 }
 

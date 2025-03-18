@@ -8,8 +8,9 @@ require_once("Car.php");
 verifySession();
 
 $pdo = connectDB();
-$carManager = new CarManager();
-$cars = $carManager->selectAllCars($pdo);
+$carManager = new CarManager($pdo);
+$cars = $carManager->selectAllCars();
+
 $title = "Administration Garage";
 require_once("header.php");
 ?>

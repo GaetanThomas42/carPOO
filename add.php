@@ -20,8 +20,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         //Instancier une objet Car avec le sdonnées du formulaire
         $car = new Car(null, $_POST["brand"], $_POST["model"], $_POST["horsePower"], $_POST["image"]);
         // Ajouter la voiture en BDD  et rediriger
-        $carManager = new CarManager();
-        $carManager->insertCar($pdo, $car);
+        $carManager = new CarManager($pdo);
+        $carManager->insertCar($car);
         header("location: admin.php");
     }
 }
