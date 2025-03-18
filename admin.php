@@ -16,15 +16,15 @@ require_once("header.php");
 ?>
 
 <div class="container mt-4">
-    <h1 class="text-center mb-4">Liste des Voitures</h1>
+    <h1 class="text-center mb-4"><?= $title ?></h1>
 
-    <div class="text-center mb-3">
+    <div class="m-5">
         <a class="btn btn-success" href="add.php">Ajouter une Voiture</a>
     </div>
 
-    <div class="row">
+    <div class="d-flex flex-wrap justify-content-evenly gap-4">
         <?php foreach ($cars as $car): ?>
-            <div class="col-md-4 mb-4">
+            <div class="col-md-4 mb-4 col-sm-6">
                 <div class="card shadow-sm">
                     <img src="images/<?= $car->getImage() ?>" 
                          alt="<?= $car->getModel() ?>" 

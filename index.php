@@ -8,7 +8,7 @@ $cars = $carManager->selectAllCars();
 $title = "Bienvenue dans le Garage";
 require_once("header.php");
 ?>
-<h1>Listes des Voitures</h1>
+<h1 class="text-center">Listes des Voitures</h1>
 <div class="d-flex flex-wrap">
     <?php foreach ($cars as $car): ?>
         <div class="col-4 d-flex p-3 justify-content-center">
