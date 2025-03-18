@@ -28,7 +28,7 @@ require_once("header.php");
                 <div class="card shadow-sm">
                     <img src="images/<?= $car->getImage() ?>" 
                          alt="<?= $car->getModel() ?>" 
-                         class="card-img-top img-fluid rounded col-md-4 col-sm-6" >                    
+                         class="card-img-top img-fluid rounded col-md-4 col-sm-6" style="height: 200px; width: auto;">                    
                     <div class="card-body">
                         <h5 class="card-title"><?= $car->getModel() ?></h5>
                         <p class="card-text"><?= $car->getBrand() ?> - <?= $car->getHorsePower() ?> chevaux</p>

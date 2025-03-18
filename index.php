@@ -12,7 +12,7 @@ require_once("header.php");
 <div class="d-flex flex-wrap">
     <?php foreach ($cars as $car): ?>
         <div class="col-4 d-flex p-3 justify-content-center">
-            <img src="images/<?= $car->getImage() ?>" alt="<?= $car->getModel() ?>">
+            <img src="images/<?= $car->getImage() ?>" alt="<?= $car->getModel() ?>" style="height: 200px; width: auto;">
             <div class="p-2">
                 <h2><?= $car->getModel() ?></h2>
                 <p><?= $car->getBrand() ?>, <?= $car->getHorsePower() ?> chevaux</p>
