@@ -15,7 +15,7 @@ CREATE TABLE car  (
     image VARCHAR(255) NOT NULL
 );
 
-INSERT INTO car (model, brand, horsePower, image)
+INSERT INTO car (model, brand, horsePower, im,age)
 VALUES ('Model S', 'Tesla', 670, 'modelS.jpg');
 INSERT INTO car (model, brand, horsePower, image)
 VALUES ('Civic', 'Honda', 158, 'civic.jpg');

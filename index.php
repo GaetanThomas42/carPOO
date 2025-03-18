@@ -1,10 +1,11 @@
 <?php
-require_once("functions.php");
+require_once("CarManager.php");
 require_once("connectDB.php");
 require_once("Car.php");
 
 $pdo = connectDB();
-$cars = selectAllCars($pdo);
+$carManager = new CarManager();
+$cars = $carManager->selectAllCars($pdo);
 
 $title = "Bienvenue dans le Garage";
 require_once("header.php");

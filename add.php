@@ -2,6 +2,7 @@
 require_once("functions.php");
 require_once("connectDB.php"); 
 require_once("Car.php"); 
+require_once("CarManager.php"); 
 
 // Vérifier que l'utilisateur est connécté avec la présence
 // D'un "username" en SESSION
@@ -19,8 +20,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         //Instancier une objet Car avec le sdonnées du formulaire
         $car = new Car(null, $_POST["brand"], $_POST["model"], $_POST["horsePower"], $_POST["image"]);
         // Ajouter la voiture en BDD  et rediriger
-        insertCar($pdo, $car);
-        header("location: index.php");
+        $carManager = new CarManager();
+        $carManager->insertCar($pdo, $car);
+        header("location: admin.php");
     }
 }
 

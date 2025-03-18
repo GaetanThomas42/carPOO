@@ -1,13 +1,15 @@
 <?php
 require_once("functions.php");
 require_once("connectDB.php");
+require_once("CarManager.php");
 require_once("Car.php");
 
 // Vérifier que l'utilisateur est connecté
 verifySession();
 
 $pdo = connectDB();
-$cars = selectAllCars($pdo);
+$carManager = new CarManager();
+$cars = $carManager->selectAllCars($pdo);
 $title = "Administration Garage";
 require_once("header.php");
 ?>

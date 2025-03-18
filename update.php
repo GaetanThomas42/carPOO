@@ -2,6 +2,7 @@
 require_once("connectDB.php");
 require_once("functions.php");
 require_once("Car.php");
+require_once("CarManager.php");
 
 // Vérifier que l'utilisateur est connécté avec la présence
 // D'un "username" en SESSION
@@ -12,7 +13,8 @@ if(!isset($_GET["id"])){
 }
 
 $pdo = connectDB();
-$car = selectCarByID($pdo, $_GET["id"]); // Un seul connect DB par page
+$carManager = new CarManager();
+$car = $carManager->selectCarByID($pdo, $_GET["id"]); // Un seul connect DB par page
 
 //Vérifier si la voiture avec l'ID existe en BDD
 if(!$car){
@@ -34,8 +36,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $car->setImage($_POST["image"]);
         $car->setHorsePower($_POST["horsePower"]);
 
-        updateCarByID($pdo, $car);
-        header("Location: index.php");
+        $carManager->updateCarByID($pdo, $car);
+        header("Location: admin.php");
         exit();
 
     }
@@ -48,27 +50,27 @@ require_once("header.php");
 
 ?>
 
-<h1 class="text-primary">Modifier <?php echo $car->getBrand() ?> <?php echo $car->getModel() ?> </h1>
+<h1 class="text-primary">Modifier <?= $car->getBrand() ?> <?= $car->getModel() ?> </h1>
 
-<img src="images/<?php echo $car->getModel() ?>" alt="<?php echo $car->getModel() ?>">
+<img src="images/<?= $car->getBrand() ?>" alt="<?= $car->getModel() ?>">
 
 
-<form method="POST" action="update.php?id=<?php echo ($car->getId()) ?>">
+<form method="POST" action="update.php?id=<?= ($car->getId()) ?>">
 
     <label for="model">Model</label>
-    <input id="model" type="text" name="model" value="<?php echo ($car->getModel())  ?>">
+    <input id="model" type="text" name="model" value="<?= ($car->getModel())  ?>">
     <?php if (isset($errors['model'])): ?>
         <p class="text-danger"><?= $errors['model'] ?></p>
     <?php endif; ?>
 
     <label for="brand">Brand</label>
-    <input type="text" name="brand" value="<?php echo ($car->getBrand())  ?>">
+    <input type="text" name="brand" value="<?= $car->getBrand()  ?>">
     <?php if (isset($errors['brand'])): ?>
         <p class="text-danger"><?= $errors['brand'] ?></p>
     <?php endif; ?>
 
     <label for="horsePower">HorsePower</label>
-    <input id="horsePower" type="number" name="horsePower" value="<?php echo ($car->getHorsePower())  ?>">
+    <input id="horsePower" type="number" name="horsePower" value="<?= $car->getHorsePower()  ?>">
     <?php if (isset($errors['horsePower'])): ?>
         <p class="text-danger"><?= $errors['horsePower'] ?></p>
     <?php endif; ?>
