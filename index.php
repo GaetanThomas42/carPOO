@@ -2,7 +2,7 @@
 require_once("CarManager.php");
 require_once("Car.php");
     
-
+$carManager = new CarManager();
 $cars = $carManager->selectAllCars();
 
 $title = "Bienvenue dans le Garage";
