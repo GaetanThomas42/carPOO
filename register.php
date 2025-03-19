@@ -7,17 +7,15 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
     $errors = [];
 
-    if (empty($_POST["username"])) {
-        $errors["username"] = "Le username est vide";
+    if (empty($_POST['username']) || strlen($_POST['username']) < 4) {
+        $errors['username'] = 'Votre username doit contenir 4 caracteres';
     }
-
-    if (empty($_POST["password"]) || strlen($_POST["password"]) < 8) {
-        $errors["password"] = "le mot de passe est trop court !";
+    if (empty($_POST['password']) || strlen($_POST['password']) < 8) {
+        $errors['password'] = 'Votre password doit contenir 8 caracteres';
     }
 
     if (empty($errors)) {
         $userManager = new UserManager();
-
         $usernameExist = $userManager->selectByUsername($_POST["username"]);
 
         if ($usernameExist != false) {
@@ -50,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
         <?php if (isset($errors["username"])) {?>
         <p class="text-danger">
-            <?=($errors["username"]); ?>
+            <?=$errors["username"] ?>
         </p>
         <?php } ?>
 
@@ -63,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
         <?php if (isset($errors["password"])) {?>
         <p class="text-danger">
-            <?=($errors["password"]); ?>
+            <?=$errors["password"] ?>
         </p>
         <?php } ?>
 
