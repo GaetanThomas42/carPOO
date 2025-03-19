@@ -41,7 +41,5 @@ require_once("header.php");
     <input class="btn btn-outline-danger" type="submit" value="Confirmer">
 </form>
 
-
 <?php
 require_once("footer.php");
-?>

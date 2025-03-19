@@ -45,7 +45,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 $title = "Modifier " . $car->getModel();
 require_once("header.php");
-
 ?>
 
 <h1 class="text-primary">Modifier <?= $car->getBrand() ?> <?= $car->getModel() ?> </h1>
@@ -84,4 +83,3 @@ require_once("header.php");
 </form>
 <?php
 require_once("footer.php");
-?>

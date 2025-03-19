@@ -13,6 +13,4 @@ if(isset($_SESSION["username"])){
 //Détruit la session totale, une nouvelle session sera créée avec un nouvelle ID
 //session_destroy();
 
-header("Location: index.php")
-
-?>
+header("Location: index.php");

@@ -25,7 +25,7 @@ class UserManager extends DatabaseManager{
 
    public function insertUser(User $user): bool
    {
-       $requete = self::getConnexion()->prepare("INSERT INTO user (username,password,email) VALUES (:username,:password,:email);");
+       $requete = self::getConnexion()->prepare("INSERT INTO user (username,password) VALUES (:username,:password);");
 
        $requete->execute([
            "username" => $user->getUsername(),
