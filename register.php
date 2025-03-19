@@ -7,9 +7,6 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
     $errors = [];
 
-    $userManager = new UserManager();
-
-
     if (empty($_POST["username"])) {
         $errors["username"] = "Le username est vide";
     }
@@ -19,6 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     }
 
     if (empty($errors)) {
+        $userManager = new UserManager();
 
         $usernameExist = $userManager->selectUserByUsername($_POST["username"]);
 
