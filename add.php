@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $car = new Car(null, $_POST["brand"], $_POST["model"], $_POST["horsePower"], $_POST["image"]);
         // Ajouter la voiture en BDD  et rediriger
         $carManager = new CarManager();
-        $carManager->insertCar($car);
+        $carManager->insert($car);
         header("location: admin.php");
     }
 }

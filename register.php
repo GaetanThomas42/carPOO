@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     if (empty($errors)) {
         $userManager = new UserManager();
 
-        $usernameExist = $userManager->selectUserByUsername($_POST["username"]);
+        $usernameExist = $userManager->selectByUsername($_POST["username"]);
 
         if ($usernameExist != false) {
             $errors["username"] = "Le username existe déja !";
@@ -29,10 +29,11 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             $pass = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
             $user = new User(null, $_POST["username"], $pass);
-            $userManager->insertUser($user);
+            $userManager->insert($user);
 
             session_start();
             $_SESSION["username"] = $user->getUsername();
+            
             header("Location: admin.php");
         }
     }

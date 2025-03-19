@@ -5,7 +5,7 @@ require_once("DatabaseManager.php");
  * CarManager
  * Représente un gestionnaire de la table Car
  * Contient les méthodes et requêtes pour la table Car
- * Hérite de DatabaseManager, donc a accès à la connexion PDO
+ * Hérite de DatabaseManager, donc accès à la connexion PDO
  * via la méthode héritée statique getConnexion()
  */
 class CarManager extends DatabaseManager
@@ -14,7 +14,7 @@ class CarManager extends DatabaseManager
      * Récupère toutes les lignes de la table Car
      * @return array Tableau d'instances Car.
      */
-    public function selectAllCars(): array
+    public function selectAll(): array
     {
         //Récupération de la connexion PDO et requête SQL
         $requete = self::getConnexion()->prepare("SELECT * FROM car;");
@@ -38,7 +38,7 @@ class CarManager extends DatabaseManager
      * @param  int $id
      * @return Car
      */
-    public function selectCarByID(int $id): Car|false
+    public function selectByID(int $id): Car|false
     {
         $requete = self::getConnexion()->prepare("SELECT * FROM car WHERE id = :id;");
         $requete->execute([
@@ -62,7 +62,7 @@ class CarManager extends DatabaseManager
      * @param  Car $car
      * @return bool
      */
-    public function insertCar(Car $car): bool
+    public function insert(Car $car): bool
     {
         $requete = self::getConnexion()->prepare("INSERT INTO car (model,brand,horsePower,image) VALUES (:model,:brand,:horsePower,:image);");
 
@@ -82,7 +82,7 @@ class CarManager extends DatabaseManager
      * @param  Car $car
      * @return bool
      */
-    public function updateCarByID(Car $car): bool
+    public function update(Car $car): bool
     {
         $requete = self::getConnexion()->prepare("UPDATE car SET model = :model, brand = :brand, horsePower = :horsePower, image = :image WHERE id = :id;");
         $requete->execute(
@@ -104,7 +104,7 @@ class CarManager extends DatabaseManager
      * @param  int $id
      * @return bool
      */
-    public function deleteCarByID(int $id): bool
+    public function deleteByID(int $id): bool
     {
         $requete = self::getConnexion()->prepare("DELETE FROM car WHERE id = :id;");
         $requete->execute([

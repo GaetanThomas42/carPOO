@@ -7,9 +7,8 @@ require_once("Model/Car.php");
 // Vérifier que l'utilisateur est connecté
 verifySession();
 
-
 $carManager = new CarManager();
-$cars = $carManager->selectAllCars();
+$cars = $carManager->selectAll();
 
 $title = "Administration Garage";
 require_once("header.php");

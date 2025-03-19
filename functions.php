@@ -1,5 +1,4 @@
 <?php
-
 // Class CarForm... ?
 function validateCarForm(array $errors, array $carForm): array
 {
@@ -18,16 +17,6 @@ function validateCarForm(array $errors, array $carForm): array
     //Démo class CarFormValidator
     
     return $errors;
-}
-
-//Class UserManager
-function selectUserByUsername(PDO $pdo, string $username): array|false
-{
-    $requete = $pdo->prepare("SELECT * FROM user WHERE username = :username;");
-    $requete->execute([
-        ":username" => $username
-    ]);
-    return $requete->fetch();
 }
 
 //Class SessionChecker

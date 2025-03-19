@@ -12,7 +12,7 @@ if(!isset($_GET["id"])){
 }
 //Select by id
 $carManager = new CarManager();
-$car = $carManager->selectCarByID($_GET["id"]);
+$car = $carManager->selectByID($_GET["id"]);
 
 //Vérifier si la voiture avec l'ID existe en BDD
 if(!$car){
@@ -24,7 +24,7 @@ if(!$car){
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //Supprimer la voiture et rediriger
     $carManager = new CarManager();
-    $carManager->deleteCarByID($car->getId());
+    $carManager->deleteByID($car->getId());
     header("Location: admin.php?delete=ok");
 }
 

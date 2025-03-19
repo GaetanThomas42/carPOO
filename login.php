@@ -20,7 +20,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     if(count($errors) == 0){
         
         $userManager = new UserManager();
-        $user = $userManager->selectUserByUsername($_POST["username"]);
+        $user = $userManager->selectByUsername($_POST["username"]);
 
         //Vérification si User trouvée avec le Username
         if($user != false){

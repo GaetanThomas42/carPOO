@@ -3,7 +3,7 @@ require_once("Manager/CarManager.php");
 require_once("Model/Car.php");
     
 $carManager = new CarManager();
-$cars = $carManager->selectAllCars();
+$cars = $carManager->selectAll();
 
 $title = "Bienvenue dans le Garage";
 require_once("header.php");

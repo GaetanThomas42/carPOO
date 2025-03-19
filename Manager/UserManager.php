@@ -5,7 +5,7 @@ require_once("Model/User.php");
 
 class UserManager extends DatabaseManager{
 
-    public function selectUserByUsername(string $username): User|false
+    public function selectByUsername(string $username): User|false
     {
         $requete = self::getConnexion()->prepare("SELECT * FROM user WHERE username = :username;");
         $requete->execute([
@@ -23,7 +23,7 @@ class UserManager extends DatabaseManager{
     
     }
 
-   public function insertUser(User $user): bool
+   public function insert(User $user): bool
    {
        $requete = self::getConnexion()->prepare("INSERT INTO user (username,password) VALUES (:username,:password);");
 

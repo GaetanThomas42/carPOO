@@ -12,7 +12,7 @@ if(!isset($_GET["id"])){
 }
 
 $carManager = new CarManager();
-$car = $carManager->selectCarByID($_GET["id"]); // Un seul connect DB par page
+$car = $carManager->selectByID($_GET["id"]); // Un seul connect DB par page
 
 //Vérifier si la voiture avec l'ID existe en BDD
 if(!$car){
