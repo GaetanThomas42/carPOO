@@ -41,16 +41,18 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
 ?>
 
-<form method="POST" action="inscription.php">
+<form method="POST" action="register.php">
 
     <span class="d-block p-2 text-bg-dark">
 
         <label for="Username">Username</label>
         <input type="text" name="username">
 
-        <?php if (isset($errors["username"])) {
-            echo ($errors["username"]);
-        } ?>
+        <?php if (isset($errors["username"])) {?>
+        <p class="text-danger">
+            <?=($errors["username"]); ?>
+        </p>
+        <?php } ?>
 
     </span>
 
@@ -59,9 +61,11 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         <label for="password">Mot de passe</label>
         <input type="password" name="password">
 
-        <?php if (isset($errors["password"])) {
-            echo ($errors["password"]);
-        } ?>
+        <?php if (isset($errors["password"])) {?>
+        <p class="text-danger">
+            <?=($errors["password"]); ?>
+        </p>
+        <?php } ?>
 
     </span>
     <span class="d-block p-2 text-bg-dark">
