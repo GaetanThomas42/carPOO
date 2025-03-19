@@ -22,4 +22,15 @@ class UserManager extends DatabaseManager{
         return new User($arrayUser["id"], $arrayUser["username"], $arrayUser["password"]);
     
     }
+
+   public function insertUser(User $user): bool
+   {
+       $requete = self::getConnexion()->prepare("INSERT INTO user (username,password,email) VALUES (:username,:password,:email);");
+
+       $requete->execute([
+           "username" => $user->getUsername(),
+           "password" => $user->getPassWord()
+       ]);
+       return $requete->rowCount() > 0;
+   }
 }
