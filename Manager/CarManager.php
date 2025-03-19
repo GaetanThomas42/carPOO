@@ -1,7 +1,6 @@
 <?php
 require_once("DatabaseManager.php");
 
-
 /**
  * CarManager
  * Représente un gestionnaire de la table Car
@@ -13,7 +12,6 @@ class CarManager extends DatabaseManager
 {
     /**
      * Récupère toutes les lignes de la table Car
-     * @param PDO $pdo La connexion PDO.
      * @return array Tableau d'instances Car.
      */
     public function selectAllCars(): array
@@ -37,7 +35,6 @@ class CarManager extends DatabaseManager
 
     /**
      * Récupère une ligne de la table Car par ID
-     * @param  PDO $pdo
      * @param  int $id
      * @return Car
      */
@@ -62,7 +59,6 @@ class CarManager extends DatabaseManager
     /**
      * insertCar
      *
-     * @param  PDO $pdo
      * @param  Car $car
      * @return bool
      */
@@ -83,7 +79,6 @@ class CarManager extends DatabaseManager
     /**
      * updateCarByID
      *
-     * @param  PDO $pdo
      * @param  Car $car
      * @return bool
      */
@@ -106,7 +101,6 @@ class CarManager extends DatabaseManager
     /**
      * deleteCarByID
      *
-     * @param  PDO $pdo
      * @param  int $id
      * @return bool
      */
