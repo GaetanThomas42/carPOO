@@ -2,7 +2,6 @@
 require_once("functions.php");
 require_once("Manager/UserManager.php");
 
-
 $errors = [];
 //Me permet de créer le MDP HASHÉ et de copié coller en bdd
 $pass = password_hash("admin", PASSWORD_DEFAULT);
@@ -13,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($_POST['username']) || strlen($_POST['username']) < 4) {
         $errors['username'] = 'Votre username doit contenir 4 caracteres';
     }
-    if (empty($_POST['password']) || strlen($_POST['password']) < 8) {
+    if (empty($_POST['password']) || strlen($_POST['password']) < 4) {
         $errors['password'] = 'Votre password doit contenir 8 caracteres';
     }
 

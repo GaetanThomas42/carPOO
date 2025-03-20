@@ -1,6 +1,4 @@
 <?php
-// 
-require_once("header.php");
 require_once("Manager/UserManager.php");
 
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
@@ -10,8 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     if (empty($_POST['username']) || strlen($_POST['username']) < 4) {
         $errors['username'] = 'Votre username doit contenir 4 caracteres';
     }
-    if (empty($_POST['password']) || strlen($_POST['password']) < 8) {
-        $errors['password'] = 'Votre password doit contenir 8 caracteres';
+    if (empty($_POST['password']) || strlen($_POST['password']) < 4) {
+        $errors['password'] = 'Votre password doit contenir 4 caracteres';
     }
 
     if (empty($errors)) {
@@ -37,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     }
 }
 
+require_once("header.php");
 ?>
 
 <form method="POST" action="register.php">
